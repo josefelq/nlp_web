@@ -269,7 +269,7 @@ td {
 
   .registration > div {
     padding: 2rem;
-    height: 65vh;
+    min-height: 65vh;
     width: 30vw;
   }
 }
