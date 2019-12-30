@@ -1,3 +1,6 @@
+### Description
+Coding challenge. Use AYLIEN endpoints (sentiment, classification, entities, concepts and summarize) to retrieve text analysis for any given web article. 
+
 ### Requirements
 * Python 3+
 * Virtualenv (Optional)
