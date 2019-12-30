@@ -273,3 +273,9 @@ td {
     width: 30vw;
   }
 }
+
+@media only screen and (min-width: 1440px) {
+  html {
+    font-size: 26px;
+  }
+}
