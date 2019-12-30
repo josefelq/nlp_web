@@ -1,0 +1,46 @@
+{% extends 'home.html' %} {% block result %}
+<div class="data-container">
+  <h1 class="center">Concepts</h1>
+
+  {% if not data.concepts %}
+  <div class="card">
+    <b class="center">No concepts found.</b>
+  </div>
+
+  {% endif %} {% for key, value in data.concepts.items %}
+  <div class="card">
+    <h3><a class="blue" href="{{ key }}">{{key}}</a></h3>
+
+    <h3>Surface Forms</h3>
+    <div class="table-container">
+      <table>
+        <tr>
+          <th>String</th>
+          <th>Score</th>
+          <th>Offset</th>
+        </tr>
+        {% for sf in value.surfaceForms %}
+        <tr>
+          <td>
+            {{sf.string}}
+          </td>
+          <td>
+            {{sf.score}}
+          </td>
+          <td>
+            {{sf.offset}}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <h3>Types</h3>
+    <p>{{value.types|join:" , "}}</p>
+
+    <h3>Support</h3>
+    <p>{{ value.support }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

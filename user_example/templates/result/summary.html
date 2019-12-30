@@ -1,0 +1,12 @@
+{% extends 'home.html' %} {% block result %}
+<div class="data-container">
+  <h1 class="center">Summary</h1>
+  <div class="card">
+    {% if data.sentences %}
+    <p class="summary">{{data.sentences|join:" "}}</p>
+    {% else %}
+    <b class="center">No summary found.</b>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

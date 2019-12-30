@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="registration center">
+  <div>
+    <h1 class="center">Log In</h1>
+    <form method="post" action="{% url 'login'%}" class="reg-form">
+      {% csrf_token %}
+      <label><b>Username</b></label>
+      {{form.username}}
+      <label><b>Password</b></label>
+      {{form.password}}
+
+      <input type="submit" value="Log In" class="reg-btn box-anim" />
+
+      <input type="hidden" name="next" value="{{next}}" />
+    </form>
+    {% if form.errors %}
+    <div class="center error-field">
+      <p>Wrong Username/Password combination.</p>
+    </div>
+
+    {% endif %}
+    <p class="suggestion center">
+      Don't have an account?
+      <a class="redirect" href="{% url 'signup' %}">&nbsp;Sign Up</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

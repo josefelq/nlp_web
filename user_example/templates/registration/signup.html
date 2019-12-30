@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="registration center">
+  <div>
+    <h1 class="center">Sign Up</h1>
+    <form method="post" action="" class="reg-form">
+      {% csrf_token %}
+      <label>
+        <b>Username</b>
+      </label>
+      {{form.username}}
+      <label>
+        <b>Password</b>
+      </label>
+      {{form.password1}}
+      <label>
+        <b>Confirm password</b>
+      </label>
+      {{form.password2}}
+
+      <input type="submit" value="Sign up" class="reg-btn box-anim" />
+    </form>
+    {% if form.errors %}
+    <div class="center error-field">
+      <p>
+        Something went wrong while creating your account. Try again.
+      </p>
+    </div>
+
+    {% endif %}
+    <p class="suggestion center">
+      Already have an account?
+      <a class="redirect" href="{% url 'login' %}">&nbsp;Sign In</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'home.html' %} {% block result %}
+<div class="data-container">
+  <h1 class="center">Sentiment</h1>
+
+  <div class="card">
+    <h2 class="blue">Polarity</h2>
+    <p>
+      <b>{{data.polarity}} </b> with a confidence value of
+      <b>{{data.polarity_confidence}}</b>
+    </p>
+  </div>
+
+  <div class="card">
+    <h2 class="blue">Subjectivity</h2>
+    <p>
+      <b>{{data.subjectivity}}</b> with a confidence value of &nbsp;<b
+        >{{data.subjectivity_confidence}}</b
+      >
+    </p>
+  </div>
+</div>
+{% endblock %}

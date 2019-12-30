@@ -1,0 +1,39 @@
+{% extends 'home.html' %} {% block result %}
+<div class="data-container">
+  <h1 class="center">Classification</h1>
+  <div class="card">
+    <h2 class="blue">Language</h2>
+    <p>
+      {{data.language}}
+    </p>
+  </div>
+
+  <div class="card">
+    <h2 class="blue">Categories</h2>
+    <div class="table-container">
+      {% if data.categories %}
+      <table>
+        <tr>
+          <th>Label</th>
+          <th>Code</th>
+          <th>Confidence</th>
+        </tr>
+
+        {% for category in data.categories %}
+
+        <tr>
+          <td>{{category.label}}</td>
+          <td>{{category.code}}</td>
+          <td>{{category.confidence}}</td>
+        </tr>
+
+        {% endfor %}
+      </table>
+
+      {% else %}
+      <b>No categories found.</b>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

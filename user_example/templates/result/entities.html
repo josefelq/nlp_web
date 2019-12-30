@@ -1,0 +1,37 @@
+{% extends 'home.html' %} {% block result %}
+<div class="data-container">
+  <h1 class="center">Entities</h1>
+  <div class="card">
+    <h2 class="blue">Locations</h2>
+    {% if data.entities.location %}
+    <p>{{ data.entities.location|join:", " }}</p>
+    {% else %}
+    <b>No location entities found.</b>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h2 class="blue">Keywords</h2>
+    {% if data.entities.keyword %}
+    <p>{{ data.entities.keyword|join:", " }}</p>
+    {% else %}
+    <b>No keyword entities found.</b>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h2 class="blue">Organizations</h2>
+    {% if data.entities.organization %}
+    <p>{{ data.entities.organization|join:", " }}</p>
+    {% else %}
+    <b>No organization entities found.</b>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h2 class="blue">Persons</h2>
+    {% if data.entities.person %}
+    <p>{{ data.entities.person|join:", " }}</p>
+    {% else %}
+    <b>No person entities found.</b>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

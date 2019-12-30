@@ -1,0 +1,146 @@
+{% extends 'base.html' %} {% block content %} {% block result %}{% endblock %}
+<div class="content">
+  <nav>
+    <div></div>
+    <h1>NLP Analysis</h1>
+    <a href="{% url 'logout' %}">Logout</a>
+  </nav>
+  <div class="main">
+    <span class="welcome center">
+      <h2 class="center">
+        Hello&nbsp; <span class="blue">{{user.username}}</span>!&nbsp;
+      </h2>
+      <h2>
+        Type any given URL and click on search to retrieve its NLP analysis.
+      </h2>
+    </span>
+
+    <form method="POST" class="main-form">
+      {% csrf_token %}
+      <input
+        type="text"
+        name="search"
+        class="form-text"
+        placeholder="Search URL ..."
+      />
+      <input type="submit" value="Search" class="form-search box-anim" />
+    </form>
+
+    {% if result.sentiment and not result.sentiment.error %}
+    <div class="data-container">
+      <h1 class="center">Sentiment</h1>
+
+      <div class="card">
+        <h2 class="blue">Polarity</h2>
+        <p>
+          <b>{{result.sentiment.polarity}} </b> with a confidence value of
+          <b>{{result.sentiment.polarity_confidence}}</b>
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 class="blue">Subjectivity</h2>
+        <p>
+          <b>{{result.sentiment.subjectivity}}</b> with a confidence value of
+          &nbsp;<b>{{result.sentiment.subjectivity_confidence}}</b>
+        </p>
+      </div>
+
+      <h1 class="center">Classification</h1>
+      <div class="card">
+        <h2 class="blue">Language</h2>
+        <p>
+          {{result.classification.language}}
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 class="blue">Categories</h2>
+        <table class="category-table">
+          <tr>
+            <th>Label</th>
+            <th>Code</th>
+            <th>Confidence</th>
+          </tr>
+
+          {% for category in result.classification.categories %}
+
+          <tr>
+            <td>{{category.label}}</td>
+            <td>{{category.code}}</td>
+            <td>{{category.confidence}}</td>
+          </tr>
+
+          {% endfor %}
+        </table>
+      </div>
+
+      <h1 class="center">Entities</h1>
+
+      <div class="card">
+        <h2 class="blue">Locations</h2>
+        <p>{{ result.entities.entities.location|join:", " }}</p>
+        <h2 class="blue">Keywords</h2>
+        <p>{{ result.entities.entities.keyword|join:", " }}</p>
+        <h2 class="blue">Organizations</h2>
+        <p>{{ result.entities.entities.organization|join:", " }}</p>
+        <h2 class="blue">Persons</h2>
+        <p>{{ result.entities.entities.person|join:", " }}</p>
+      </div>
+
+      <h1 class="center">Concepts</h1>
+      <div class="card">
+        {% for key, value in result.concepts.items %}
+
+        <h2 class="blue center">{{key}}</h2>
+
+        <h3>Surface Forms</h3>
+
+        <table>
+          <tr>
+            <th>String</th>
+            <th>Score</th>
+            <th>Offset</th>
+          </tr>
+          {% for sf in value.surfaceForms %}
+          <tr>
+            <td>
+              {{sf.string}}
+            </td>
+            <td>
+              {{sf.score}}
+            </td>
+            <td>
+              {{sf.offset}}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <h3>Types</h3>
+        {% for type in value.types %}
+        <p>{{type}}</p>
+        <br />
+        {% endfor %}
+        <h3>Support</h3>
+        <p>{{ value.support }}</p>
+        {% endfor %}
+      </div>
+
+      <h1 class="center">Summarize</h1>
+      <div class="card"></div>
+
+      <h1 class="center">Text analyzed</h1>
+      <div class="card">
+        <p class="format">{{result.sentiment.text}}</p>
+      </div>
+    </div>
+    {% elif result.sentiment.error %}
+    <div class="not-found center">
+      <h1>Couldn't find any results. Remember to search for URLs.</h1>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
